@@ -21,10 +21,11 @@ Here we read in the methylKit output file containing DMRs between sperm and RBCs
 ```{r}
 DMRoutput <- read.csv ("../data/SpvRBC_DMR100bp_75percdiff")
 knitr::kable(
-  DMRoutput[1:5, ],
-  caption = "5 rows of DMRoutput"
+  DMRoutput[1:5, ]
 )
 ```
+
+
 
 Filtering DMRs to return only those that are hypo-methylated (in sperm v. RBC)
 
@@ -42,14 +43,14 @@ The name field can contain any information that you want to keep with the region
 
 The third line of code in this chunk writes out the table to the `analyses` directory.
 
+
 ```{r}
-DMRoutput_hypo.bed <- DMRoutput_hypo[,c(2,3,4,8)]
+DMRoutput_hypo.bed <- select(DMRoutput_hypo,chr,start,end,meth.diff)  
 knitr::kable(
-  DMRoutput_hypo.bed
+  DMRoutput_hypo.bed[1:5, ]
 )
 write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep = '\t', row.names = F,quote = F)
 ```
-
 
 
 
