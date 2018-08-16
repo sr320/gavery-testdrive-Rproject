@@ -57,17 +57,12 @@ write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep =
 
 # STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST
 
-The first thing you will need to do is revise the chunk below to include the locations of bedtools on your computer.
-
-```{bash}
-bedtools=/Applications/bioinfo/bedtools2/bin/bedtools
-```
-
+The first thing you will need to do is revise the chunks below to include the locations of bedtools on your computer.
 
 First we will sort the file created in prior Step.
 
 ```{bash}
-$bedtools \
+/Applications/bioinfo/bedtools2/bin/bedtools \
 sort \
 -i ../analyses/DMRs_hypo.bed \
 > ../analyses/DMRs_hypo.sorted.bed
@@ -84,7 +79,7 @@ closest \
 -D b \
 > ../analyses/closetgene.txt
 
-head ../analyses/closetgene.txt
+head -3 ../analyses/closetgene.txt
 ```
 
 
