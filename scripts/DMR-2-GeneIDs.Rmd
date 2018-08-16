@@ -1,10 +1,14 @@
 ---
-title: "DMR-genes"
+title: "DMR-2-GeneIDs"
 output: html_document
 ---
 
+In this Rmarkdown file we will take a methylkit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the `data` directory.
+
+
+
 Loading libaries 
-```{r}
+```{r, message = FALSE}
 library(dplyr)
 library(reshape2)
 ```
@@ -15,31 +19,40 @@ library(reshape2)
 Here we read in the methylKit output file containing DMRs between sperm and RBCs in O.mykiss
 
 ```{r}
-DMRoutput <- read.csv("data/SpvRBC_DMR100bp_75percdiff")
-DMRoutput
+DMRoutput <- read.csv ("../data/SpvRBC_DMR100bp_75percdiff")
+knitr::kable(
+  DMRoutput[1:5, ],
+  caption = "5 rows of DMRoutput"
+)
 ```
 
 Filtering DMRs to return only those that are hypo-methylated (in sperm v. RBC)
 
 ```{r}
 DMRoutput_hypo <- filter(DMRoutput, meth.diff < 0)
-DMRoutput_hypo
+knitr::kable(
+  DMRoutput_hypo[1:5, ]
+)
 ```
 
 
-#reformat the output into a bed file (fields: chrom, chromStart,chromEnd,name*)
-#*name field can contain any information that you want to keep with the region, we will retain the meth.diff column
+Reformatting the output into a bed file (fields: chrom, chromStart,chromEnd,name*)
+
+The name field can contain any information that you want to keep with the region, we will retain the meth.diff column. The third line of code in this chunk writes out the table to the `analyses` directory.
+
+```{r}
 DMRoutput_hypo.bed <- DMRoutput_hypo[,c(2,3,4,8)]
+knitr::kable(
+  DMRoutput_hypo.bed
+)
+write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep = '\t', row.names = F,quote = F)
+```
 
 
-#look at the file
-head(DMRoutput_hypo.bed)
-
-##save the file as a bed
-write.table(DMRoutput_hypo.bed,"analyses/DMRs_hypo.bed",col.names = F, sep = '\t', row.names = F,quote = F)
 
 
-#STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST#####################################################
+
+# STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST
 
 #define location of bedtools program on you computer
 bedtools <- "/Applications/bioinfo/bedtools2/bin/bedtools"
