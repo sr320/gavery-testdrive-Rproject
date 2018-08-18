@@ -3,7 +3,7 @@ title: "DMR-2-GeneIDs"
 output: html_document
 ---
 
-In this Rmarkdown file we will take a methylkit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the `data` directory.
+In this Rmarkdown file we will take a methylKit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the `data` directory.
 
 
 
@@ -41,7 +41,7 @@ Reformatting the output into a bed file (fields: chrom, chromStart,chromEnd,name
 
 The name field can contain any information that you want to keep with the region, we will retain the meth.diff column. 
 
-The third line of code in this chunk writes out the table to the `analyses` directory.
+
 
 
 ```{r}
@@ -49,10 +49,13 @@ DMRoutput_hypo.bed <- select(DMRoutput_hypo,chr,start,end,meth.diff)
 knitr::kable(
   DMRoutput_hypo.bed[1:5, ]
 )
-write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep = '\t', row.names = F,quote = F)
 ```
 
+Write the table to the `analyses` directory.
 
+```{r}
+write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep = '\t', row.names = F,quote = F)
+```
 
 
 # STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST
@@ -62,7 +65,7 @@ The first thing you will need to do is revise the chunks below to include the lo
 First we will sort the file created in prior Step.
 
 ```{bash}
-/Applications/bioinfo/bedtools2/bin/bedtools \
+/Users/mgavery/Downloads/bedtools-2.17.0/bin/bedtools \
 sort \
 -i ../analyses/DMRs_hypo.bed \
 > ../analyses/DMRs_hypo.sorted.bed
@@ -97,6 +100,15 @@ knitr::kable(
 )
 ```
 
+Name the columns from the bedtools output
+
+```{r}
+DMRwgene <- DMRwgene %>% rename( DMR_chr= V1, DMR_start = V2, DMR_end = V3, DMR_meth.diff = V4,
+                     gene_seqname = V5, gene_source = V6, DMR_feature = V7, gene_start = V8,
+                     gene_end = V9, gene_score= V10, gene_strand = V11, DMR_frame = V12,
+                     gene_attribute = V13, dist_bp = V14)
+```
+
 
 Reading in blast output
 
@@ -114,7 +126,7 @@ knitr::kable(
 Performing a left join to join the output of bedtools (DMRwgene) to the blast output (genes_annot)
 
 ```{r}
-geneID_IPA <- left_join(DMRwgene,genes_annot, by = c("V13" = "Sequence"))
+geneID_IPA <- left_join(DMRwgene,genes_annot, by = c("gene_attribute" = "Sequence"))
 
 ```
 
@@ -131,15 +143,15 @@ Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-val
 
 
 ```{r}
-annotations_filterA<-filter(geneID_IPA, V14 >= -10000)
+annotations_filterA<-filter(geneID_IPA, dist_bp >= -10000)
 nrow(annotations_filterA)
-annotations_filterB<-filter(annotations_filterA, V14 <= 10000)
+annotations_filterB<-filter(annotations_filterA, dist_bp <= 10000)
 nrow(annotations_filterB)
 annotations_filterC<-filter(annotations_filterB, E.Value <= 1e-10)
 nrow(annotations_filterC)
 ```
 
-Extracting the 'UNIPROT_ACCESSION' and removing any duplicates for use in enrichment analysis 
+Extracting the 'UNIPROT_ACCESSION' for use in enrichment analysis 
 
 Splitting column 'Hit.Name' by "|"
 
