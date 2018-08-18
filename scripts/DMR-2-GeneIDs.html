@@ -122,7 +122,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>In this Rmarkdown file we will take a methylkit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the <code>data</code> directory.</p>
+<p>In this Rmarkdown file we will take a methylKit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the <code>data</code> directory.</p>
 <p>Loading libaries</p>
 <pre class="r"><code>library(dplyr)
 library(reshape2)</code></pre>
@@ -131,11 +131,9 @@ library(reshape2)</code></pre>
 <p>Here we read in the methylKit output file containing DMRs between sperm and RBCs in O.mykiss</p>
 <pre class="r"><code>DMRoutput &lt;- read.csv (&quot;../data/SpvRBC_DMR100bp_75percdiff&quot;)
 knitr::kable(
-  DMRoutput[1:5, ],
-  caption = &quot;5 rows of DMRoutput&quot;
+  DMRoutput[1:5, ]
 )</code></pre>
 <table>
-<caption>5 rows of DMRoutput</caption>
 <thead>
 <tr class="header">
 <th align="right">X</th>
@@ -275,10 +273,9 @@ knitr::kable(
 </table>
 <p>Reformatting the output into a bed file (fields: chrom, chromStart,chromEnd,name*)</p>
 <p>The name field can contain any information that you want to keep with the region, we will retain the meth.diff column.</p>
-<p>The third line of code in this chunk writes out the table to the <code>analyses</code> directory.</p>
-<pre class="r"><code>DMRoutput_hypo.bed &lt;- DMRoutput_hypo[,c(2,3,4,8)]
+<pre class="r"><code>DMRoutput_hypo.bed &lt;- select(DMRoutput_hypo,chr,start,end,meth.diff)  
 knitr::kable(
-  DMRoutput_hypo.bed
+  DMRoutput_hypo.bed[1:5, ]
 )</code></pre>
 <table>
 <thead>
@@ -320,172 +317,16 @@ knitr::kable(
 <td align="right">217700</td>
 <td align="right">-79.92136</td>
 </tr>
-<tr class="even">
-<td align="left">scaffold_244</td>
-<td align="right">242701</td>
-<td align="right">242800</td>
-<td align="right">-81.17717</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_244</td>
-<td align="right">242801</td>
-<td align="right">242900</td>
-<td align="right">-85.01137</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_299</td>
-<td align="right">683001</td>
-<td align="right">683100</td>
-<td align="right">-80.29437</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_429</td>
-<td align="right">527501</td>
-<td align="right">527600</td>
-<td align="right">-86.89770</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_477</td>
-<td align="right">87001</td>
-<td align="right">87100</td>
-<td align="right">-85.03917</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_673</td>
-<td align="right">514701</td>
-<td align="right">514800</td>
-<td align="right">-87.21385</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_684</td>
-<td align="right">71001</td>
-<td align="right">71100</td>
-<td align="right">-88.03677</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_684</td>
-<td align="right">71101</td>
-<td align="right">71200</td>
-<td align="right">-87.12902</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_793</td>
-<td align="right">18001</td>
-<td align="right">18100</td>
-<td align="right">-75.50260</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_1053</td>
-<td align="right">240601</td>
-<td align="right">240700</td>
-<td align="right">-75.23156</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_1344</td>
-<td align="right">227301</td>
-<td align="right">227400</td>
-<td align="right">-85.08277</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_1344</td>
-<td align="right">227401</td>
-<td align="right">227500</td>
-<td align="right">-87.69471</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_1611</td>
-<td align="right">142801</td>
-<td align="right">142900</td>
-<td align="right">-95.14854</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_1931</td>
-<td align="right">101701</td>
-<td align="right">101800</td>
-<td align="right">-89.81481</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_1959</td>
-<td align="right">54401</td>
-<td align="right">54500</td>
-<td align="right">-79.63991</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_2039</td>
-<td align="right">129601</td>
-<td align="right">129700</td>
-<td align="right">-82.31429</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_3179</td>
-<td align="right">12001</td>
-<td align="right">12100</td>
-<td align="right">-79.11548</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_4948</td>
-<td align="right">30501</td>
-<td align="right">30600</td>
-<td align="right">-77.38936</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_6333</td>
-<td align="right">4801</td>
-<td align="right">4900</td>
-<td align="right">-86.69096</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_12562</td>
-<td align="right">9601</td>
-<td align="right">9700</td>
-<td align="right">-80.16041</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_13270</td>
-<td align="right">1701</td>
-<td align="right">1800</td>
-<td align="right">-86.66340</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_26769</td>
-<td align="right">1601</td>
-<td align="right">1700</td>
-<td align="right">-78.20601</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_28200</td>
-<td align="right">2001</td>
-<td align="right">2100</td>
-<td align="right">-75.11417</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_29430</td>
-<td align="right">2401</td>
-<td align="right">2500</td>
-<td align="right">-81.68018</td>
-</tr>
-<tr class="even">
-<td align="left">scaffold_71326</td>
-<td align="right">601</td>
-<td align="right">700</td>
-<td align="right">-75.91545</td>
-</tr>
-<tr class="odd">
-<td align="left">scaffold_79929</td>
-<td align="right">505701</td>
-<td align="right">505800</td>
-<td align="right">-84.83320</td>
-</tr>
 </tbody>
 </table>
+<p>Write the table to the <code>analyses</code> directory.</p>
 <pre class="r"><code>write.table (DMRoutput_hypo.bed,&quot;../analyses/DMRs_hypo.bed&quot;,col.names = F, sep = '\t', row.names = F,quote = F)</code></pre>
 </div>
 <div id="step-2.-using-genomic-arithmatic-to-annotate-regions-of-interest" class="section level1">
 <h1>STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST</h1>
-<p>The first thing you will need to do is revise the chunk below to include the locations of bedtools on your computer.</p>
-<pre class="bash"><code>bedtools=/Applications/bioinfo/bedtools2/bin/bedtools</code></pre>
+<p>The first thing you will need to do is revise the chunks below to include the locations of bedtools on your computer.</p>
 <p>First we will sort the file created in prior Step.</p>
-<pre class="bash"><code>$bedtools \
+<pre class="bash"><code>/Applications/bioinfo/bedtools2/bin/bedtools \
 sort \
 -i ../analyses/DMRs_hypo.bed \
 &gt; ../analyses/DMRs_hypo.sorted.bed</code></pre>
@@ -497,17 +338,10 @@ closest \
 -D b \
 &gt; ../analyses/closetgene.txt
 
-head ../analyses/closetgene.txt</code></pre>
+head -3 ../analyses/closetgene.txt</code></pre>
 <pre><code>## scaffold_1053    240601  240700  -75.2315559980833   scaffold_1053   Gaze    mRNA    236254  242140  42.4608 +   .   GSONMT00033334001   0
 ## scaffold_12  553201  553300  -77.7546785562807   scaffold_12 Gaze    mRNA    551061  553766  35.1637 +   .   GSONMT00065649001   0
-## scaffold_12562   9601    9700    -80.1604101243045   scaffold_12562  Gaze    mRNA    8312    11566   51.676  +   .   GSONMT00009527001   0
-## scaffold_13270   1701    1800    -86.663397180146    .   .   .   -1  -1  .   .   .   .   -1
-## scaffold_1344    227301  227400  -85.0827714229338   scaffold_1344   Gaze    mRNA    226776  229369  101.3928    +   .   GSONMT00033437001   0
-## scaffold_1344    227401  227500  -87.694714638437    scaffold_1344   Gaze    mRNA    226776  229369  101.3928    +   .   GSONMT00033437001   0
-## scaffold_136 622301  622400  -87.5085159347704   scaffold_136    Gaze    mRNA    622589  648787  367.051 +   .   GSONMT00066870001   -189
-## scaffold_1611    142801  142900  -95.1485434273574   scaffold_1611   Gaze    mRNA    115360  116668  39.1347 -   .   GSONMT00058749001   -26134
-## scaffold_1931    101701  101800  -89.8148052748216   scaffold_1931   Gaze    mRNA    86908   116168  243.7489    +   .   GSONMT00019901001   0
-## scaffold_1959    54401   54500   -79.6399103996467   scaffold_1959   Gaze    mRNA    53776   71297   100.0246    -   .   GSONMT00011470001   0</code></pre>
+## scaffold_12562   9601    9700    -80.1604101243045   scaffold_12562  Gaze    mRNA    8312    11566   51.676  +   .   GSONMT00009527001   0</code></pre>
 </div>
 <div id="step-3.-joining-tables-and-filtering-based-on-distance-and-qualiy-of-annotation" class="section level1">
 <h1>STEP 3. JOINING TABLES AND FILTERING BASED ON DISTANCE AND QUALIY OF ANNOTATION</h1>
@@ -571,6 +405,11 @@ knitr::kable(
 </tr>
 </tbody>
 </table>
+<p>Name the columns from the bedtools output</p>
+<pre class="r"><code>DMRwgene &lt;- DMRwgene %&gt;% rename( DMR_chr= V1, DMR_start = V2, DMR_end = V3, DMR_meth.diff = V4,
+                     gene_seqname = V5, gene_source = V6, DMR_feature = V7, gene_start = V8,
+                     gene_end = V9, gene_score= V10, gene_strand = V11, DMR_frame = V12,
+                     gene_attribute = V13, dist_bp = V14)</code></pre>
 <p>Reading in blast output</p>
 <pre class="r"><code>genes_annot &lt;- read.table(&quot;../data/Omy_BLAST_UniProt.tab&quot;, header=T, sep=&quot;\t&quot;, stringsAsFactors=F, fill=T, quote=&quot;&quot;, na.strings=&quot;&quot;, comment.char=&quot;&quot;)
 
@@ -630,24 +469,31 @@ knitr::kable(
 </tbody>
 </table>
 <p>Performing a left join to join the output of bedtools (DMRwgene) to the blast output (genes_annot)</p>
-<pre class="r"><code>geneID_IPA &lt;- left_join(DMRwgene,genes_annot, by = c(&quot;V13&quot; = &quot;Sequence&quot;))</code></pre>
-<pre><code>## Warning: Column `V13`/`Sequence` joining factor and character vector,
-## coercing into character vector</code></pre>
+<pre class="r"><code>geneID_IPA &lt;- left_join(DMRwgene,genes_annot, by = c(&quot;gene_attribute&quot; = &quot;Sequence&quot;))</code></pre>
+<pre><code>## Warning: Column `gene_attribute`/`Sequence` joining factor and character
+## vector, coercing into character vector</code></pre>
 <pre class="r"><code>head(geneID_IPA)</code></pre>
-<pre><code>##               V1     V2     V3        V4             V5   V6   V7     V8
-## 1  scaffold_1053 240601 240700 -75.23156  scaffold_1053 Gaze mRNA 236254
-## 2    scaffold_12 553201 553300 -77.75468    scaffold_12 Gaze mRNA 551061
-## 3 scaffold_12562   9601   9700 -80.16041 scaffold_12562 Gaze mRNA   8312
-## 4 scaffold_13270   1701   1800 -86.66340              .    .    .     -1
-## 5  scaffold_1344 227301 227400 -85.08277  scaffold_1344 Gaze mRNA 226776
-## 6  scaffold_1344 227401 227500 -87.69471  scaffold_1344 Gaze mRNA 226776
-##       V9      V10 V11 V12               V13 V14 Length Blast.Type
-## 1 242140  42.4608   +   . GSONMT00033334001   0   1269     BLASTX
-## 2 553766  35.1637   +   . GSONMT00065649001   0   1623     BLASTX
-## 3  11566   51.676   +   . GSONMT00009527001   0    801     BLASTX
-## 4     -1        .   .   .                 .  -1     NA       &lt;NA&gt;
-## 5 229369 101.3928   +   . GSONMT00033437001   0   1353     BLASTX
-## 6 229369 101.3928   +   . GSONMT00033437001   0   1353     BLASTX
+<pre><code>##          DMR_chr DMR_start DMR_end DMR_meth.diff   gene_seqname
+## 1  scaffold_1053    240601  240700     -75.23156  scaffold_1053
+## 2    scaffold_12    553201  553300     -77.75468    scaffold_12
+## 3 scaffold_12562      9601    9700     -80.16041 scaffold_12562
+## 4 scaffold_13270      1701    1800     -86.66340              .
+## 5  scaffold_1344    227301  227400     -85.08277  scaffold_1344
+## 6  scaffold_1344    227401  227500     -87.69471  scaffold_1344
+##   gene_source DMR_feature gene_start gene_end gene_score gene_strand
+## 1        Gaze        mRNA     236254   242140    42.4608           +
+## 2        Gaze        mRNA     551061   553766    35.1637           +
+## 3        Gaze        mRNA       8312    11566     51.676           +
+## 4           .           .         -1       -1          .           .
+## 5        Gaze        mRNA     226776   229369   101.3928           +
+## 6        Gaze        mRNA     226776   229369   101.3928           +
+##   DMR_frame    gene_attribute dist_bp Length Blast.Type
+## 1         . GSONMT00033334001       0   1269     BLASTX
+## 2         . GSONMT00065649001       0   1623     BLASTX
+## 3         . GSONMT00009527001       0    801     BLASTX
+## 4         .                 .      -1     NA       &lt;NA&gt;
+## 5         . GSONMT00033437001       0   1353     BLASTX
+## 6         . GSONMT00033437001       0   1353     BLASTX
 ##                                Blast.Database                Hit.Name
 ## 1 Non-redundant UniProtKB/SwissProt sequences sp|Q1KL12.1|HXA3A_TAKRU
 ## 2 Non-redundant UniProtKB/SwissProt sequences sp|Q6UFS5.1|ZN503_DANRE
@@ -670,16 +516,16 @@ knitr::kable(
 ## 5  1304  3e-175 318/482 (65%)           1      1350         1     472
 ## 6  1304  3e-175 318/482 (65%)           1      1350         1     472</code></pre>
 <p>Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-value of &lt; 1e-10</p>
-<pre class="r"><code>annotations_filterA&lt;-filter(geneID_IPA, V14 &gt;= -10000)
+<pre class="r"><code>annotations_filterA&lt;-filter(geneID_IPA, dist_bp &gt;= -10000)
 nrow(annotations_filterA)</code></pre>
 <pre><code>## [1] 30</code></pre>
-<pre class="r"><code>annotations_filterB&lt;-filter(annotations_filterA, V14 &lt;= 10000)
+<pre class="r"><code>annotations_filterB&lt;-filter(annotations_filterA, dist_bp &lt;= 10000)
 nrow(annotations_filterB)</code></pre>
 <pre><code>## [1] 27</code></pre>
 <pre class="r"><code>annotations_filterC&lt;-filter(annotations_filterB, E.Value &lt;= 1e-10)
 nrow(annotations_filterC)</code></pre>
 <pre><code>## [1] 19</code></pre>
-<p>Extracting the ‘UNIPROT_ACCESSION’ and removing any duplicates for use in enrichment analysis</p>
+<p>Extracting the ‘UNIPROT_ACCESSION’ for use in enrichment analysis</p>
 <p>Splitting column ‘Hit.Name’ by “|”</p>
 <pre class="r"><code>newColNames &lt;- c(&quot;DB&quot;, &quot;UNIPROT_ACCESSTION&quot;,&quot;UNIPROT_ID&quot;)
 newCols &lt;- colsplit(annotations_filterC$Hit.Name, &quot;\\|&quot;, newColNames)
@@ -694,20 +540,27 @@ head(newCols)</code></pre>
 <pre class="r"><code>annotations_filterC_UNIPROT &lt;- cbind(annotations_filterC, newCols)
 
 head(annotations_filterC_UNIPROT)</code></pre>
-<pre><code>##               V1     V2     V3        V4             V5   V6   V7     V8
-## 1  scaffold_1053 240601 240700 -75.23156  scaffold_1053 Gaze mRNA 236254
-## 2    scaffold_12 553201 553300 -77.75468    scaffold_12 Gaze mRNA 551061
-## 3 scaffold_12562   9601   9700 -80.16041 scaffold_12562 Gaze mRNA   8312
-## 4  scaffold_1344 227301 227400 -85.08277  scaffold_1344 Gaze mRNA 226776
-## 5  scaffold_1344 227401 227500 -87.69471  scaffold_1344 Gaze mRNA 226776
-## 6   scaffold_136 622301 622400 -87.50852   scaffold_136 Gaze mRNA 622589
-##       V9      V10 V11 V12               V13  V14 Length Blast.Type
-## 1 242140  42.4608   +   . GSONMT00033334001    0   1269     BLASTX
-## 2 553766  35.1637   +   . GSONMT00065649001    0   1623     BLASTX
-## 3  11566   51.676   +   . GSONMT00009527001    0    801     BLASTX
-## 4 229369 101.3928   +   . GSONMT00033437001    0   1353     BLASTX
-## 5 229369 101.3928   +   . GSONMT00033437001    0   1353     BLASTX
-## 6 648787  367.051   +   . GSONMT00066870001 -189   3537     BLASTX
+<pre><code>##          DMR_chr DMR_start DMR_end DMR_meth.diff   gene_seqname
+## 1  scaffold_1053    240601  240700     -75.23156  scaffold_1053
+## 2    scaffold_12    553201  553300     -77.75468    scaffold_12
+## 3 scaffold_12562      9601    9700     -80.16041 scaffold_12562
+## 4  scaffold_1344    227301  227400     -85.08277  scaffold_1344
+## 5  scaffold_1344    227401  227500     -87.69471  scaffold_1344
+## 6   scaffold_136    622301  622400     -87.50852   scaffold_136
+##   gene_source DMR_feature gene_start gene_end gene_score gene_strand
+## 1        Gaze        mRNA     236254   242140    42.4608           +
+## 2        Gaze        mRNA     551061   553766    35.1637           +
+## 3        Gaze        mRNA       8312    11566     51.676           +
+## 4        Gaze        mRNA     226776   229369   101.3928           +
+## 5        Gaze        mRNA     226776   229369   101.3928           +
+## 6        Gaze        mRNA     622589   648787    367.051           +
+##   DMR_frame    gene_attribute dist_bp Length Blast.Type
+## 1         . GSONMT00033334001       0   1269     BLASTX
+## 2         . GSONMT00065649001       0   1623     BLASTX
+## 3         . GSONMT00009527001       0    801     BLASTX
+## 4         . GSONMT00033437001       0   1353     BLASTX
+## 5         . GSONMT00033437001       0   1353     BLASTX
+## 6         . GSONMT00066870001    -189   3537     BLASTX
 ##                                Blast.Database                Hit.Name
 ## 1 Non-redundant UniProtKB/SwissProt sequences sp|Q1KL12.1|HXA3A_TAKRU
 ## 2 Non-redundant UniProtKB/SwissProt sequences sp|Q6UFS5.1|ZN503_DANRE

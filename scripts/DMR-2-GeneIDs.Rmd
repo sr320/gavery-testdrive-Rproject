@@ -65,7 +65,7 @@ The first thing you will need to do is revise the chunks below to include the lo
 First we will sort the file created in prior Step.
 
 ```{bash}
-/Users/mgavery/Downloads/bedtools-2.17.0/bin/bedtools \
+/Applications/bioinfo/bedtools2/bin/bedtools \
 sort \
 -i ../analyses/DMRs_hypo.bed \
 > ../analyses/DMRs_hypo.sorted.bed
