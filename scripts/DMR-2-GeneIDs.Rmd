@@ -11,6 +11,7 @@ We will be using the Project feature in Rstudio where you will have access to da
 
 ```{r, message = FALSE}
 #install.packages("dplyr")
+#install.packages("tidyr")
 ```
 
 
@@ -18,7 +19,6 @@ Once the library is instaled, you need to load the libary
 ```{r, message = FALSE}
 library(dplyr)
 library(tidyr)
-#library(reshape2) #needed for colsplit
 ```
 
 
