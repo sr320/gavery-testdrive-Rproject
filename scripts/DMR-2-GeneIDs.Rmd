@@ -150,7 +150,7 @@ Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-val
 ```{r}
 DMRwAnnot.filtered <- DMRwAnnot %>% 
 filter(dist_bp <= abs(10000) & E.Value <= 1e-10)  %>% 
-separate(Hit.Name, into = c("db", "acc", "entry_name"), sep = "\\|") 
+separate(Hit.Name, into = c("db", "acc", "spid"), sep = "\\|") 
 head(DMRwAnnot.filtered)  
 ```     
 
@@ -163,13 +163,24 @@ Saving files
 write.table(DMRwAnnot.filtered,"../analyses/DMR_fullannotations.txt",sep = "\t",quote = F,row.names = F)
 
 
-write.table(DMRwAnnot.filtered$entry_name, "../analyses/DMR_Entry_Name.txt", sep = "\t", quote = F, row.names = F, col.names = F)
+write.table(DMRwAnnot.filtered$entry_name, "../analyses/DMR_spid_Name.txt", sep = "\t", quote = F, row.names = F, col.names = F)
 ```
 
 
 
 
+Getting Background for use with David
 
 
 
+```{r}
+Omykiss_all_background <- genes_annot %>%
+  select(Hit.Name) %>%
+  separate(Hit.Name, into = c("db", "acc", "spid"), sep = "\\|")  %>%
+  select(spid)
 
+head(Omykiss_all_background)
+
+
+write.table(Omykiss_all_background, "../analyses/Omykiss_background.txt", sep = "\t", quote = F, row.names = F, col.names = F)
+```

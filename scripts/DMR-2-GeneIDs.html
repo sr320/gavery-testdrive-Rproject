@@ -524,7 +524,7 @@ knitr::kable(
 <p>Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-value of &lt; 1e-10. And separated the blast Hit.Name so accession number and entry name are in new columns</p>
 <pre class="r"><code>DMRwAnnot.filtered &lt;- DMRwAnnot %&gt;% 
 filter(dist_bp &lt;= abs(10000) &amp; E.Value &lt;= 1e-10)  %&gt;% 
-separate(Hit.Name, into = c(&quot;db&quot;, &quot;acc&quot;, &quot;entry_name&quot;), sep = &quot;\\|&quot;) 
+separate(Hit.Name, into = c(&quot;db&quot;, &quot;acc&quot;, &quot;spid&quot;), sep = &quot;\\|&quot;) 
 head(DMRwAnnot.filtered)  </code></pre>
 <pre><code>##          DMR_chr DMR_start DMR_end DMR_meth.diff   gene_seqname
 ## 1  scaffold_1053    240601  240700     -75.23156  scaffold_1053
@@ -547,7 +547,7 @@ head(DMRwAnnot.filtered)  </code></pre>
 ## 4         . GSONMT00033437001       0   1353     BLASTX
 ## 5         . GSONMT00033437001       0   1353     BLASTX
 ## 6         . GSONMT00066870001    -189   3537     BLASTX
-##                                Blast.Database db      acc  entry_name
+##                                Blast.Database db      acc        spid
 ## 1 Non-redundant UniProtKB/SwissProt sequences sp Q1KL12.1 HXA3A_TAKRU
 ## 2 Non-redundant UniProtKB/SwissProt sequences sp Q6UFS5.1 ZN503_DANRE
 ## 3 Non-redundant UniProtKB/SwissProt sequences sp Q6NVN3.1  IRX3_XENTR
@@ -572,7 +572,22 @@ head(DMRwAnnot.filtered)  </code></pre>
 <pre class="r"><code>write.table(DMRwAnnot.filtered,&quot;../analyses/DMR_fullannotations.txt&quot;,sep = &quot;\t&quot;,quote = F,row.names = F)
 
 
-write.table(DMRwAnnot.filtered$entry_name, &quot;../analyses/DMR_Entry_Name.txt&quot;, sep = &quot;\t&quot;, quote = F, row.names = F, col.names = F)</code></pre>
+write.table(DMRwAnnot.filtered$entry_name, &quot;../analyses/DMR_spid_Name.txt&quot;, sep = &quot;\t&quot;, quote = F, row.names = F, col.names = F)</code></pre>
+<p>Getting Background for use with David</p>
+<pre class="r"><code>Omykiss_all_background &lt;- genes_annot %&gt;%
+  select(Hit.Name) %&gt;%
+  separate(Hit.Name, into = c(&quot;db&quot;, &quot;acc&quot;, &quot;spid&quot;), sep = &quot;\\|&quot;)  %&gt;%
+  select(spid)
+
+head(Omykiss_all_background)</code></pre>
+<pre><code>##          spid
+## 1 ENDD1_HUMAN
+## 2  F115_DANRE
+## 3  PNKP_HUMAN
+## 4   CO2_GORGO
+## 5  MFRP_HUMAN
+## 6 NUDT8_MOUSE</code></pre>
+<pre class="r"><code>write.table(Omykiss_all_background, &quot;../analyses/Omykiss_background.txt&quot;, sep = &quot;\t&quot;, quote = F, row.names = F, col.names = F)</code></pre>
 </div>
 
 
