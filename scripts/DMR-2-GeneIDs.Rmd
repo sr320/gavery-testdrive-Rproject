@@ -97,27 +97,20 @@ head -3 ../analyses/closetgene.txt
 
 # STEP 3. JOINING TABLES AND FILTERING BASED ON DISTANCE AND QUALIY OF ANNOTATION
 
-Reading in table from Step 2 into R.
+Reading in table from Step 2 into R. At the same time we will rename the columns to something more meaningful.
 
 ```{r}
-DMRwgene <- read.table("../analyses/closetgene.txt", sep = '\t')
+DMRwgene <- read.table("../analyses/closetgene.txt", sep = '\t') %>% 
+  rename( DMR_chr= V1, DMR_start = V2, DMR_end = V3, DMR_meth.diff = V4,
+                     gene_seqname = V5, gene_source = V6, DMR_feature = V7, gene_start = V8,
+                     gene_end = V9, gene_score= V10, gene_strand = V11, DMR_frame = V12,
+                     gene_attribute = V13, dist_bp = V14)
 
 knitr::kable(
   DMRwgene[1:2, ]
 )
 ```
-
-Name the columns from the bedtools output
-
-```{r}
-DMRwgene <- DMRwgene %>% rename( DMR_chr= V1, DMR_start = V2, DMR_end = V3, DMR_meth.diff = V4,
-                     gene_seqname = V5, gene_source = V6, DMR_feature = V7, gene_start = V8,
-                     gene_end = V9, gene_score= V10, gene_strand = V11, DMR_frame = V12,
-                     gene_attribute = V13, dist_bp = V14)
-```
-
-
-Reading in blast output
+Reading in blast output from comparing _O. mykiss_ to Swiss-Prot
 
 ```{r}
 genes_annot <- read.table("../data/Omy_BLAST_UniProt.tab", header=T, sep="\t", stringsAsFactors=F, fill=T, quote="", na.strings="", comment.char="")
@@ -133,7 +126,7 @@ knitr::kable(
 Performing a left join to join the output of bedtools (DMRwgene) to the blast output (genes_annot)
 
 ```{r}
-geneID_IPA <- left_join(DMRwgene,genes_annot, by = c("gene_attribute" = "Sequence"))
+DMRwAnnot <- left_join(DMRwgene,genes_annot, by = c("gene_attribute" = "Sequence"))
 
 ```
 
@@ -141,12 +134,24 @@ geneID_IPA <- left_join(DMRwgene,genes_annot, by = c("gene_attribute" = "Sequenc
 
 
 ```{r}
-head(geneID_IPA)
+head(DMRwAnnot)
 
 ```
 
 Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-value of < 1e-10
 
+
+
+
+```{r}
+DMRwAnnot.filtered <- filter
+(DMRwAnnot, dist_bp >= -10000)
+nrow(annotations_filterA)
+annotations_filterB<-filter(annotations_filterA, dist_bp <= 10000)
+nrow(annotations_filterB)
+annotations_filterC<-filter(annotations_filterB, E.Value <= 1e-10)
+nrow(an
+```     
 
 
 ```{r}
