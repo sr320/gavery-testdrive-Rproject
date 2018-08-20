@@ -1,22 +1,28 @@
 ---
-title: "DMR-2-GeneIDs"
+title: "Identifying Genes near DMRs"
 output: html_document
 ---
 
-In this Rmarkdown file we will take a methylKit output file and end up with a list of genes associated with the DMRs based on location. Files being provided to you (results of other processes) are in the `data` directory.
+In this Rmarkdown file we will take a methylKit output file and end up with a list of genes associated with the DMRs based on genomic location. 
 
 
+## Getting Setup
+We will be using the Project feature in Rstudio where you will have access to data files in a manner that relative paths can be used. Files being provided to you (results of other processes) are in the `data` directory. You likely have the package dplyr installed on your machine. If for some reason you do not you woul need to run the following chunk. 
 
-Loading libaries 
+```{r, message = FALSE}
+install.packages("dplyr")
+```
+
+
+Once the library is instaled, you need to load the libary
 ```{r, message = FALSE}
 library(dplyr)
-library(reshape2)
 ```
 
 
 # Step  1. PREPARING A BED FILE
 
-Here we read in the methylKit output file containing DMRs between sperm and RBCs in O.mykiss
+Here we read in the methylKit output file containing DMRs between sperm and RBCs in _O. mykiss_
 
 ```{r}
 DMRoutput <- read.csv ("../data/SpvRBC_DMR100bp_75percdiff")
