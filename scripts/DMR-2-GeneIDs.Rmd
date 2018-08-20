@@ -111,7 +111,12 @@ knitr::kable(
   DMRwgene[1:2, ]
 )
 ```
+
+
+
+
 Reading in blast output from comparing _O. mykiss_ to Swiss-Prot
+
 
 ```{r}
 genes_annot <- read.table("../data/Omy_BLAST_UniProt.tab", header=T, sep="\t", stringsAsFactors=F, fill=T, quote="", na.strings="", comment.char="")
