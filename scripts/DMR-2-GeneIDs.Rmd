@@ -33,7 +33,7 @@ knitr::kable(
 
 
 
-Filtering DMRs to return only those that are hypo-methylated (in sperm v. RBC)
+Filtering DMRs to return only those that are _hypo-methylated_ (in sperm v. RBC) and saving this as `DMRoutput_hypo`
 
 ```{r}
 DMRoutput_hypo <- filter(DMRoutput, meth.diff < 0)
@@ -66,7 +66,7 @@ write.table (DMRoutput_hypo.bed,"../analyses/DMRs_hypo.bed",col.names = F, sep =
 
 # STEP 2. USING GENOMIC ARITHMATIC TO ANNOTATE REGIONS OF INTEREST
 
-The first thing you will need to do is revise the chunks below to include the locations of bedtools on your computer.
+**IMPORTANT** You will need to do is revise the two chunks below to include the locations of bedtools on your computer. If bedtools is in your system path simply `bedtools` would work.
 
 First we will sort the file created in prior Step.
 
