@@ -17,6 +17,7 @@ We will be using the Project feature in Rstudio where you will have access to da
 Once the library is instaled, you need to load the libary
 ```{r, message = FALSE}
 library(dplyr)
+library(tidyr)
 #library(reshape2) #needed for colsplit
 ```
 
@@ -138,52 +139,26 @@ head(DMRwAnnot)
 
 ```
 
-Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-value of < 1e-10
-
-
+Now we will filter the annotations to, 1) genes within 10kb of DMR, 2) and e-value of < 1e-10. And separated the blast Hit.Name so accession number and entry name are in new columns
 
 
 ```{r}
-DMRwAnnot.filtered <- filter
-(DMRwAnnot, dist_bp >= -10000)
-nrow(annotations_filterA)
-annotations_filterB<-filter(annotations_filterA, dist_bp <= 10000)
-nrow(annotations_filterB)
-annotations_filterC<-filter(annotations_filterB, E.Value <= 1e-10)
-nrow(an
+DMRwAnnot.filtered <- DMRwAnnot %>% 
+filter(dist_bp <= abs(10000) & E.Value <= 1e-10)  %>% 
+separate(Hit.Name, into = c("db", "acc", "entry_name"), sep = "\\|") 
+head(DMRwAnnot.filtered)  
 ```     
 
 
-```{r}
-annotations_filterA<-filter(geneID_IPA, dist_bp >= -10000)
-nrow(annotations_filterA)
-annotations_filterB<-filter(annotations_filterA, dist_bp <= 10000)
-nrow(annotations_filterB)
-annotations_filterC<-filter(annotations_filterB, E.Value <= 1e-10)
-nrow(annotations_filterC)
-```
-
-Extracting the 'UNIPROT_ACCESSION' for use in enrichment analysis 
-
-Splitting column 'Hit.Name' by "|"
-
-```{r}
-newColNames <- c("DB", "UNIPROT_ACCESSTION","UNIPROT_ID")
-newCols <- colsplit(annotations_filterC$Hit.Name, "\\|", newColNames)
-head(newCols)
-annotations_filterC_UNIPROT <- cbind(annotations_filterC, newCols)
-
-head(annotations_filterC_UNIPROT)
-```
 
 
 Saving files 
 
 ```{r}
-write.table(annotations_filterC_UNIPROT,"../analyses/DMR_fullannotations.txt",sep = "\t",quote = F,row.names = F)
+write.table(DMRwAnnot.filtered,"../analyses/DMR_fullannotations.txt",sep = "\t",quote = F,row.names = F)
 
 
-write.table(annotations_filterC_UNIPROT$UNIPROT_ID, "../analyses/DMR_UNIPROT_ID.txt", sep = "\t", quote = F, row.names = F, col.names = F)
+write.table(DMRwAnnot.filtered$entry_name, "../analyses/DMR_Entry_Name.txt", sep = "\t", quote = F, row.names = F, col.names = F)
 ```
 
 
