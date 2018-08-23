@@ -33,14 +33,19 @@ There is lots of fun stuff you can do now! We will focus what Biological Process
 ![bp-go-gif](../img/bp-go.gif)
 
 
-
+You should copy your URL as it will be different and not persistant so you can download. Replace your URL below to read in R. We will then write out. 
 
 ```{r}
 
 BP_GOFAT <- read.csv("https://david.ncifcrf.gov/data/download/chart_6833676439DC1535059666910.txt", sep = '\t')
 
 
+
+write.table(BP_GOFAT, "../data/BP_GOFAT.tab", sep = "\t", quote = F, row.names = F, col.names = T)
+
 ```
+
+
 
 
 
