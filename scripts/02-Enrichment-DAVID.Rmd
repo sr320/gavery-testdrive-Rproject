@@ -27,19 +27,19 @@ e.	Select ‘OK’ after reading the note: “Please note that multiple species 
 
 ![gene-list-gif](../img/gene-list.gif)
 
-Next you will need to set the background using `Omykiss_background.txt` created in the prior module.
+## Next you will need to set the background using `Omykiss_background.txt` created in the prior module.
 
 
 ![background-gif](../img/background.gif)
 
-There is lots of fun stuff you can do now! We will focus what Biological Processess (Gene Ontology) are enriched. 
+## There is lots of fun stuff you can do now! We will focus what Biological Processess (Gene Ontology) are enriched. 
 
 
 
 ![bp-go-gif](../img/bp-go.gif)
 
 
-You should copy your URL as it will be different and not persistant so you can download. Replace your URL below to read in R. We will then write out. 
+## You should copy your URL as it will be different and not persistant so you can download. Replace your URL below to read in R. We will then write out. 
 
 ```{r}
 
@@ -65,14 +65,14 @@ write.table(GOterm_fold, "../analyses/GOterm_fold", sep = "\t", quote = F, row.n
 
 
 
-With the GO terms and fold enrichment values you can create several visualizations with Revigo
+## With the GO terms and fold enrichment values you can create several visualizations with Revigo
 
 
 
 ![revigo](../img/revigo.gif)
 
 
-And download R scripts to customize!
+## And download R scripts to customize!
 
 
 ```{r}
