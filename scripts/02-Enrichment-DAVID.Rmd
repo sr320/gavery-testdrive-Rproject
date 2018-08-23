@@ -16,13 +16,13 @@ Using the protein IDs from the first module "Identifying Genes near DMRs" we wil
 ---
 
 
-1.	Browser to DAVID: https://david.ncifcrf.gov/
-2.	Select ‘Start Analysis’ from Toolbar
-a.	Step 1: ‘Enter Gene List: Paste your gene list (DMR_spid.txt) into the space provided
-b.	Step2: ‘Select Identifier’: Select ‘UNIPROT_ID’ from the pull-down
-c.	Step 3: ‘List Type’: Select ‘Gene List’
-d.	Click ‘Submit List’
-e.	Select ‘OK’ after reading the note: “Please note that multiple species have been detected in your gene list […] As a default, all species in your list will be used for analysis.  Also note that you may need to select an appropriate background under the "BACKGROUNDS" tab in the manager to the left.  By default, the background corresponding to the first species in the list will be selected...” 
+1.	Browser to DAVID: https://david.ncifcrf.gov/     
+2.	Select ‘Start Analysis’ from Toolbar .   
+a.	Step 1: ‘Enter Gene List: Paste your gene list (DMR_spid.txt) into the space provided .    
+b.	Step2: ‘Select Identifier’: Select ‘UNIPROT_ID’ from the pull-down .    
+c.	Step 3: ‘List Type’: Select ‘Gene List’ .    
+d.	Click ‘Submit List’ .   
+e.	Select ‘OK’ after reading the note: “Please note that multiple species have been detected in your gene list […] As a default, all species in your list will be used for analysis.  Also note that you may need to select an appropriate background under the "BACKGROUNDS" tab in the manager to the left.  By default, the background corresponding to the first species in the list will be selected...”     
 
 
 ![gene-list-gif](../img/gene-list.gif)
