@@ -163,7 +163,7 @@ Saving files
 write.table(DMRwAnnot.filtered,"../analyses/DMR_fullannotations.txt",sep = "\t",quote = F,row.names = F)
 
 
-write.table(DMRwAnnot.filtered$entry_name, "../analyses/DMR_spid_Name.txt", sep = "\t", quote = F, row.names = F, col.names = F)
+write.table(DMRwAnnot.filtered$spid, "../analyses/DMR_spid.txt", sep = "\t", quote = F, row.names = F, col.names = F)
 ```
 
 

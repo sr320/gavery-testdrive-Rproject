@@ -572,7 +572,7 @@ head(DMRwAnnot.filtered)  </code></pre>
 <pre class="r"><code>write.table(DMRwAnnot.filtered,&quot;../analyses/DMR_fullannotations.txt&quot;,sep = &quot;\t&quot;,quote = F,row.names = F)
 
 
-write.table(DMRwAnnot.filtered$entry_name, &quot;../analyses/DMR_spid_Name.txt&quot;, sep = &quot;\t&quot;, quote = F, row.names = F, col.names = F)</code></pre>
+write.table(DMRwAnnot.filtered$spid, &quot;../analyses/DMR_spid.txt&quot;, sep = &quot;\t&quot;, quote = F, row.names = F, col.names = F)</code></pre>
 <p>Getting Background for use with David</p>
 <pre class="r"><code>Omykiss_all_background &lt;- genes_annot %&gt;%
   select(Hit.Name) %&gt;%
