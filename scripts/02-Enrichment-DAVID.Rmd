@@ -22,8 +22,7 @@ a.	Step 1: ‘Enter Gene List: Paste your gene list (DMR_spid.txt) into the spac
 b.	Step2: ‘Select Identifier’: Select ‘UNIPROT_ID’ from the pull-down .    
 c.	Step 3: ‘List Type’: Select ‘Gene List’ .    
 d.	Click ‘Submit List’ .   
-e.	Select ‘OK’ after reading the note: “Please note that multiple species have been detected in your gene list […] As a default, all species in your list will be used for analysis.  Also note that you may need to select an appropriate background under the "BACKGROUNDS" tab in the manager to the left.  By default, the background corresponding to the first species in the list will be selected...”     
-
+e.	Select ‘OK’ after reading the note: “Please note that multiple species have been detected in your gene list […] As a default, all species in your list will be used for analysis.    
 
 ![gene-list-gif](../img/gene-list.gif)
 
