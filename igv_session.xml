@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/data/Omy_scaffolds_subset.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="scaffold_244:202693-263143" path="/Users/sr320/Documents/GitHub/gavery-testdrive-Rproject/igv_session.xml" version="8">
+    <Resources>
+        <Resource path="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/data/Omy_CGislands.gff"/>
+        <Resource path="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/analyses/DMRs_hypo.sorted.bed"/>
+        <Resource path="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/data/Omy_annotations_subset.gff3"/>
+    </Resources>
+    <Panel height="448" name="FeaturePanel" width="1125">
+        <Track altColor="0,0,178" autoScale="false" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="Reference sequence" name="Reference sequence" sortable="false" visible="true"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;26.0;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/data/Omy_annotations_subset.gff3" name="Omy_annotations_subset.gff3" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="26.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;5.0;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/data/Omy_CGislands.gff" name="Omy_CGislands.gff" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="5.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;1.0;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="https://raw.githubusercontent.com/sr320/gavery-testdrive-Rproject/master/analyses/DMRs_hypo.sorted.bed" name="DMRs_hypo.sorted.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+    </Panel>
+    <PanelLayout dividerFractions="0.013071895424836602"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
